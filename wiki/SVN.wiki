@@ -39,5 +39,5 @@ _tratto da www.wikipedia.it , per maggiori informazioni si rimanda ad http://sub
 == Eclipse plugin ==
 Di seguito sarà elencata la procedura passo passo per installare il plugin subversion per eclipse.
 
-https://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation01.png
+http://code.google.com/p/it-unisannio-ing-kid-controller/images/installation01.png
 cliccare su Help->Eclipse Marketplace
