@@ -4,7 +4,7 @@
 Proveremo qui a spiegare come installare un client svn in eclipse tramite qualche plugin gia esistente
 
 = Quale abbiamo scelto =
-
+prova
 = Dettagli =
 
 Add your content here.  Format your content with:
