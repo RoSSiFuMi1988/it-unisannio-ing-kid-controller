@@ -40,13 +40,16 @@ _tratto da www.wikipedia.it , per maggiori informazioni si rimanda ad http://sub
 Di seguito sarà elencata la procedura passo passo per installare il plugin subversion per eclipse.
 
 [http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation01.png http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation01.png]
+
 cliccare su Help->Eclipse Marketplace
 
 [http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation02.png http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation02.png]
+
 Cliccare sul tasto install corrispondente al plugin Subclipse
 
 [http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation03.png http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation03.png]
 
 [http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation04.png http://it-unisannio-ing-kid-controller.googlecode.com/svn/images/installation04.png]
+
 Accettare i termini di licensa e cliccare su Finish
 
