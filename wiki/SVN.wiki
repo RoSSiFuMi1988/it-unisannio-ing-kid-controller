@@ -1,10 +1,14 @@
 #summary One-sentence summary of this page.
 
+= Premessa = 
+Proveremo qui a spiegare come installare un client svn in eclipse tramite qualche plugin gia esistente.
+Viricordo che la password che dovete usare per fare accesso a questo repositori la trovate al seguente indirizzo *https://code.google.com/hosting/settings* , la potete rigenerare o usare quella che è stata generata di default.
+Per ora questo è quanto ho capito. Di volta in volta che scopro qualcosa di nuovo riguradante subversion, sia parte client che server, lo postero in questa wiki. Buon Lavoro.
+
 = Introduzione =
-Proveremo qui a spiegare come installare un client svn in eclipse tramite qualche plugin gia esistente
 
 = Quale abbiamo scelto =
-prova
+
 = Dettagli =
 
 Add your content here.  Format your content with:
