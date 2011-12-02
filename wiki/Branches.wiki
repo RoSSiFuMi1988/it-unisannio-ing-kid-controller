@@ -1,4 +1,4 @@
-#directory branches
+#summary directory branches
 
 = Introduzione =
 In questa directory caricheremo tutti i file inerenti allo sviluppo del nostro progetto. Sia la parte riguardante android app che la parte riguardante il lato server.
