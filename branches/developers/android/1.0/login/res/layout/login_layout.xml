@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/PasswordEditText"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_x="4dp"
+        android:layout_y="163dp"
+        android:inputType="textPassword"
+        android:text="Password" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_x="4dp"
+        android:layout_y="109dp"
+        android:inputType="textPersonName"
+        android:text="Username" />
+
+    <CheckBox
+        android:id="@+id/rememberPasswordCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="216dp"
+        android:text="Remember password" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_x="11dp"
+        android:layout_y="279dp"
+        android:text="Login" />
+
+</AbsoluteLayout>
