@@ -1,0 +1,45 @@
+<HTML><HEAD><TITLE>PRIMA MAPPA</TITLE>
+<BODY>
+
+<script //src="http://www.google.com/jsapi?key=ABQIAAAAyYu8a7AdbfUctK3zwwu_2hQcSOGmiixENvtTH313vIgQ4X1LYBSDZW5glZCCklLKePmjvJ8YN_LpPA" type="text/javascript">
+</script>
+
+
+<script type="text/javascript">
+google.load('maps', '2'); // Load version 3 of the Maps API
+function load() {
+	if (GBrowserIsCompatible()) {
+		var map = new GMap2(document.getElementById("map"));
+		map.addControl(new GLargeMapControl());
+		map.addControl(new GScaleControl());
+		var center = new GLatLng(41.028089,14.618969);
+		map.setCenter(center, 10);
+		var begin = function(){
+			GDownloadUrl("provax.php", function(data, responseCode) {
+			var xml = GXml.parse(data);
+			var marker1;
+			var punto;
+			var markers = xml.documentElement.getElementsByTagName("marker");
+			for (var i = 0; i < markers.length; i++) {
+				var lat = parseFloat(markers[i].getAttribute("latitudine"));
+				var lon = parseFloat(markers[i].getAttribute("longitudine"));
+				//alert("Latitudine: "+lat + " Longitudine: "+ lon); 
+				var punto = new GLatLng(lat,lon);
+				marker1 = new GMarker(punto, {title: "Sono qui"});
+				map.addOverlay(marker1);
+				map.setCenter(punto,10);
+			}
+		}).periodical(3000);
+		};
+		begin();
+	}
+}
+
+</script>
+
+</HEAD>
+<BODY onload="load()">
+	<div id="map" style="width: 1300px; height: 600px"></div>
+	
+</BODY>
+</HTML>
