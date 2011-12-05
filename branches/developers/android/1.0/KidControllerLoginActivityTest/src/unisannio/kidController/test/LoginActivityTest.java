@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginActivity> {
+public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginActivity>{
 
 	private LoginActivity l;
 	private EditText username,password;
