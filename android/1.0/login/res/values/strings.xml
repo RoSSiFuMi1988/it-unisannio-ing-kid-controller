@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="hello">Hello World!</string>
-    <string name="app_name">KidController</string>
-    <string name="coordinate">coordinate</string>
-    <string name="location_app">Location Activity</string>
-
-</resources>
