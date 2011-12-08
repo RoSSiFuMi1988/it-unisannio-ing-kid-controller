@@ -38,6 +38,16 @@
         android:layout_height="wrap_content"
         android:layout_x="11dp"
         android:layout_y="279dp"
+        android:onClick="callIntent"
         android:text="Login" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_x="16dp"
+        android:layout_y="424dp"
+        android:onClick="callIntent"
+        android:text="@string/Register" />
 
 </AbsoluteLayout>

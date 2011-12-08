@@ -26,22 +26,22 @@ public class LocationActivity extends Activity {
 		//creazione di un listener che risponde ai cambiamenti di posizione
 		LocationListener locationListener = new LocationListener() {
 			
-			@Override
+			
 			public void onStatusChanged(String provider, int status, Bundle extras) {
 				
 			}
 			
-			@Override
+			
 			public void onProviderEnabled(String provider) {
 				
 			}
 			
-			@Override
+			
 			public void onProviderDisabled(String provider) {
 				
 			}
 			
-			@Override
+			
 			public void onLocationChanged(Location location) {
 				double lat = location.getLatitude();
 				double lon = location.getLongitude();
