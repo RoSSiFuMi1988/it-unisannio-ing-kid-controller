@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, KidController_InterfaceActivity!</string>
+    <string name="app_name">KidController_Interface</string>
+	<string name="password">Password</string>
+    <string name="user_name">Username</string>
+	<string name="reset">Reset</string>
+    <string name="invia">Invia</string>
+</resources>
