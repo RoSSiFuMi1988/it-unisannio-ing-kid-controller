@@ -31,7 +31,7 @@ public class SendMail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response){
     	try {
 			doGet(request, response);
-		} catch (ServletException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
