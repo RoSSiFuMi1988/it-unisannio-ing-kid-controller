@@ -1,11 +1,11 @@
 package project.univ;
 
-public class Posizione {
+public class Location {
 	private String latitudine;
 	private String longitudine;
 	private String raggio;
 	
-	public Posizione(String latitudine, String longitudine, String raggio) {
+	public Location(String latitudine, String longitudine, String raggio) {
 		super();
 		this.latitudine = latitudine;
 		this.longitudine = longitudine;

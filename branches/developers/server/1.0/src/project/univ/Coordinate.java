@@ -2,8 +2,6 @@ package project.univ;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionListener;
 
 @WebServlet("/Coordinate")
 public class Coordinate extends HttpServlet {
@@ -36,14 +33,14 @@ public class Coordinate extends HttpServlet {
   			try {
 				db=new DbManager();
 				scxt.setAttribute("DbManager", db);
-			} catch (SQLException e) {}
+			} catch (Exception e) {}
   		}
-  		HttpSession session = request.getSession(false);
+  		//HttpSession session = request.getSession(false);
   		PrintWriter pw = response.getWriter();
     	Double lat = Double.parseDouble(request.getParameter("lat"));
     	Double lng = Double.parseDouble(request.getParameter("lng"));
     	String imei=request.getParameter("imei");
-    	Posizione pos = db.coordinateImpostate(imei);
+    	Location pos = db.coordinateImpostate(imei);
     	Double latitudine = Double.parseDouble(pos.getLatitudine());
     	Double longitudine = Double.parseDouble(pos.getLongitudine());
     	Double dist =  Math.acos(Math.sin(latitudine)*Math.sin(lat) + Math.cos(latitudine)*Math.cos(lat) * Math.cos(longitudine-lng));

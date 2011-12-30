@@ -3,8 +3,8 @@ package project.univ;
 import java.sql.SQLException;
 
 public class DbManager {
-	Db db=new Db();
-	public DbManager() throws SQLException{
+	private Db db;
+	public DbManager() throws SQLException, ClassNotFoundException{
 		db=new Db();
 	}
 	
@@ -38,7 +38,7 @@ public class DbManager {
 		
 	}
 
-	public Posizione coordinateImpostate(String imei) {
+	public Location coordinateImpostate(String imei) {
 		return null;
 	}
 
