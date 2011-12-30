@@ -3,9 +3,7 @@ package project.univ;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.StringTokenizer;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -46,7 +44,7 @@ public class Impostazione extends HttpServlet {
   			System.out.println("Crea nuovo DbManager impostazione");
   			try {
 				db=new DbManager();
-			} catch (SQLException e) {}
+			} catch (Exception e) {}
   		}
 		byte[] tmps=null;
 		PrintWriter pw=response.getWriter();

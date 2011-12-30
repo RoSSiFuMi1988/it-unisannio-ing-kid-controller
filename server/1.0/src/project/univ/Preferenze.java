@@ -1,8 +1,6 @@
 package project.univ;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -39,7 +37,7 @@ public class Preferenze extends HttpServlet {
   			try {
 				db=new DbManager();
 				scxt.setAttribute("DbManager", db);
-			} catch (SQLException e) {}
+			} catch (Exception e) {}
   		}
   		HttpSession session=request.getSession(false);
 		String email=(String) session.getAttribute("email");

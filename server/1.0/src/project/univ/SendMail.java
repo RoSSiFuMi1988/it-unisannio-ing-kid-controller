@@ -1,7 +1,6 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;

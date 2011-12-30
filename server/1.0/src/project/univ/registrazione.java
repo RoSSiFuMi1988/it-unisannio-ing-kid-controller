@@ -2,8 +2,6 @@ package project.univ;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -34,7 +32,7 @@ public class registrazione extends HttpServlet {
   			try {
 				db=new DbManager();
 				scxt.setAttribute("DbManager", db);
-			} catch (SQLException e) {}
+			} catch (Exception e) {}
   		}
 		PrintWriter pw = response.getWriter();
 		String email=request.getParameter("email");
@@ -55,5 +53,4 @@ public class registrazione extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
