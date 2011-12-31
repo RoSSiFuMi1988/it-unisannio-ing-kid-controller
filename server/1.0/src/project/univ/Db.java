@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class Db {
 	private Statement st;
+	private String notify;
 	
 	public Db() throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
@@ -65,13 +66,15 @@ public class Db {
 		return stato;
 	}
 	
-//	Non funziona -- RIvedere
+//	Funziona, ma nel caso in cui si voglia registrare un utente già esistente, esso non ti avverte 
+//	bensì inserisce solo il nuovo dispositivo usando il tipo di notifica registrato in precedenza
+//	MODIFICATO IN 2 PROCEDURE DIVERSE
 	public void insertUser(String email ,String pass ,String email_notify, String sms ,String imei) throws Exception{
 		String procedure;
 		if(email_notify==null)	
-			procedure = "{ call insertUser('"+ email+"','"+pass+"','"+null +"','"+ sms+"', '"+ imei+"') }";
+			procedure = "{ call insertUserSms('"+ email+"','"+pass+"','"+ sms+"', '"+ imei+"') }";
 		else
-			procedure = "{ call insertUser('"+ email+"','"+pass+"','"+email_notify+"','"+ null+"', '"+ imei+"') }";
+			procedure = "{ call insertUserEmail('"+ email+"','"+pass+"','"+email_notify+"','"+ imei+"') }";
 		st.executeUpdate(procedure);
 	}
 	
@@ -87,20 +90,41 @@ public class Db {
 		return idUtente;
 	}
 	
-	public void sendNotify(String imei){
-		
+//	Funziona
+	public Notify sendNotify(String imei) throws Exception{
+		String addr=null;
+		String procedure = "{ call sendNotify('"+imei+"') }";
+		st.execute(procedure);
+		ResultSet rset = st.getResultSet();
+		while(rset.next()){
+			try{
+				addr = rset.getString("email_notifica");
+			}catch(Exception e){
+				addr = rset.getString("sms");
+			}
+		}
+		if(addr.contains("@"))
+			notify="email";
+		else
+			notify="sms";
+		return new Notify(notify, addr);
+	}
+
+//	Funziona	
+	public void setLocation(String imei, String latitudine, String longitudine, int raggio) throws Exception{
+		String procedure = "{ call setLocation('"+ imei+"','"+latitudine+"','"+longitudine+"','"+ raggio+"') }";
+		st.executeUpdate(procedure);
 	}
 	
-	public void setLocation(String imei, String latitudine, String longitudine, int raggio){
-		
+//	Funziona
+	public void setPosition(String imeid , String latitudine ,String longitudine ) throws Exception{
+		String procedure = "{ call setPosition('"+ imeid+"','"+latitudine+"','"+longitudine+"') }";
+		st.executeUpdate(procedure);
 	}
 	
-	public void setPosition(String imeid , String latitudine ,String longitudine ){
-		
+//	Funziona	modifcato script svn
+	public void setState(String imei, String stato) throws Exception{
+		String procedure = "{ call setState('"+ imei+"','"+stato+"') }";
+		st.executeUpdate(procedure);
 	}
-	
-	public void setState(String imei, int stato){
-		
-	}
-	
 }
