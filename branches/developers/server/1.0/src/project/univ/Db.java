@@ -69,12 +69,12 @@ public class Db {
 //	Funziona, ma nel caso in cui si voglia registrare un utente già esistente, esso non ti avverte 
 //	bensì inserisce solo il nuovo dispositivo usando il tipo di notifica registrato in precedenza
 //	MODIFICATO IN 2 PROCEDURE DIVERSE
-	public void insertUser(String email ,String pass ,String email_notify, String sms ,String imei) throws Exception{
+	public void insertUser(String email ,String pass ,String email_notifySms ,String imei) throws Exception{
 		String procedure;
-		if(email_notify==null)	
-			procedure = "{ call insertUserSms('"+ email+"','"+pass+"','"+ sms+"', '"+ imei+"') }";
+		if(email_notifySms.contains("@"))	
+			procedure = "{ call insertUserEmail('"+ email+"','"+pass+"','"+email_notifySms+"','"+ imei+"') }";
 		else
-			procedure = "{ call insertUserEmail('"+ email+"','"+pass+"','"+email_notify+"','"+ imei+"') }";
+			procedure = "{ call insertUserSms('"+ email+"','"+pass+"','"+ email_notifySms+"', '"+ imei+"') }";
 		st.executeUpdate(procedure);
 	}
 	
@@ -126,5 +126,20 @@ public class Db {
 	public void setState(String imei, String stato) throws Exception{
 		String procedure = "{ call setState('"+ imei+"','"+stato+"') }";
 		st.executeUpdate(procedure);
+	}
+	
+//	Funziona
+	public boolean trovaEmail(String email) throws Exception{
+		String mail = null;
+		boolean trov = false;
+		String procedure = "{ call trovaEmail('"+email+"') }";
+		st.execute(procedure);
+		ResultSet rset = st.getResultSet();
+		while(rset.next()){
+			mail = rset.getString("email");
+		}
+		if(mail!=null)
+			trov=true;
+		return trov;
 	}
 }

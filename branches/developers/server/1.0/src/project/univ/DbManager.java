@@ -9,21 +9,31 @@ public class DbManager {
 	}
 	
 	public boolean trova(String email, String password, String imei) {
-		
-		return false;
+		boolean bool;
+		String trovato;
+		try {
+			trovato = db.login(email, password, imei);
+			if(trovato!=null)
+				bool=true;
+			else
+				bool=false;
+		} catch (Exception e) {
+			bool=false;
+		}
+		return bool;
 	}
 
-	public boolean trovaemail(String email) {
-
-		return false;
+	public boolean trovaemail(String email) throws Exception {
+		boolean trov=db.trovaEmail(email);
+		return trov;
 	}
 
-	public void creauser(String email, String password, String imei, String preferenze, String campo) {
-		
+	public void creauser(String email, String password, String campo, String imei) throws Exception {
+		db.insertUser(email, password, campo, imei);
 	}
 
-	public void insertPreference(String email, String latitudine, String longitudine, int raggio) {
-			
+	public void insertPreference(String imei, String latitudine, String longitudine, int raggio) throws Exception {
+		db.setLocation(imei, latitudine, longitudine, raggio);	
 	}
 	
 	public void changePreferenceSms(String email, int num){

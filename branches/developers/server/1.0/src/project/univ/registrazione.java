@@ -38,19 +38,41 @@ public class registrazione extends HttpServlet {
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		String imei=request.getParameter("imei");
-		String preferenze=request.getParameter("preferenze");
+		String preferenze=request.getParameter("radio");
 		String campo=request.getParameter("campo");
-		boolean trovato=db.trovaemail(email);
+		boolean trovato = false;
+		try {
+			trovato = db.trovaemail(email);
+		} catch (Exception e) {	}
 		if(trovato==true)
 			pw.println("Email già esistente");
 		else{
-			db.creauser(email, password, imei, preferenze, campo);
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-			pw.println("<body>Registrazione Effettuata con successo, attendere il reindirizzamento</body></html>");
+			boolean c=this.isInteger(campo);
+				System.out.println("Preferenze: "+preferenze+" campo: "+campo);
+				if((preferenze.contains("email") && campo.contains("@")) || (preferenze.contains("sms") && c==true) ){
+					try {
+						db.creauser(email, password, campo, imei);
+					} catch (Exception e) {System.out.println("ERRORE CREAUSER");	}
+					pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
+					pw.println("<body>Registrazione Effettuata con successo, attendere il reindirizzamento</body></html>");
+				}
+				else{
+					pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=registrazione.html\"></head>");
+					pw.println("<body>Registrazione non riuscita</body></html>");
+				}			
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+	
+    public boolean isInteger( String input )  
+    {  
+       try {  
+          Long.parseLong(input); 
+          return true;  
+       }  
+       catch( Exception e){ return false; }  
+    }  
 }
