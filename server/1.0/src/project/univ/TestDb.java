@@ -21,7 +21,7 @@ public class TestDb {
 		System.out.println("Id utente: "+c3);
 		
 // insertUser -Email/Sms	
-		database.insertUser("mgiovy.russo@libero.it", "Ernesto","lola@lola.it", null ,"abcdh");
+		database.insertUser("mgiovk.russo@libero.it", "Ernesto","3208716992" ,"abcdl");
 			
 // sendNotify
 		Notify n=database.sendNotify("paviliondv5");
@@ -39,5 +39,9 @@ public class TestDb {
 		database.setState("rb0011", "entrato");
 		c4=database.getState("rb0011");
 		System.out.println("Stato: "+c4);
-	}
+		
+// trovaEmail		
+		boolean trov=database.trovaEmail("maur@live.it");
+		System.out.println("Trovato: "+trov);
+	}	
 }

@@ -30,7 +30,6 @@ public class login extends HttpServlet {
 		ServletContext scxt = sc.getServletContext();
   		db=(DbManager) scxt.getAttribute("DbManager");
   		if(db==null){
-  			System.out.println("Crea nuovo DbManager login");
   			try {
 				db=new DbManager();
 				scxt.setAttribute("DbManager", db);
@@ -41,7 +40,7 @@ public class login extends HttpServlet {
 		String password = request.getParameter("password");
 		String imei = request.getParameter("imei");
 		boolean trovato=db.trova(email, password, imei);
-		if (true){//{if(trovato==true){
+		if(trovato==true){
 			session=request.getSession(true);
 			session.setAttribute("email", email);
 			session.setAttribute("imei", imei);
