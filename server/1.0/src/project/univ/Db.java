@@ -142,4 +142,22 @@ public class Db {
 			trov=true;
 		return trov;
 	}
+
+	public void setPreference(String email, Notify c) throws Exception {
+		String procedure = "{ call setPreference('"+email+"','"+c.getType()+"','"+c.getAddr()+"') }";
+		st.executeUpdate(procedure);		
+	}
+	
+	public Location trovaPosizione(String imei) throws Exception{
+		String latitudine=null, longitudine=null, raggio=null;
+		String procedure = "{ call trovaPosizione('"+imei+"')}";
+		st.execute(procedure);
+		ResultSet rset = st.getResultSet();
+		while(rset.next()){
+			latitudine=rset.getString("latitudine");
+			longitudine=rset.getString("longitudine");
+		}
+		Location l=new Location(latitudine, longitudine, raggio);
+		return l;
+	}
 }

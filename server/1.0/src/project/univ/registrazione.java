@@ -28,7 +28,6 @@ public class registrazione extends HttpServlet {
 		ServletContext scxt = sc.getServletContext();
   		db=(DbManager) scxt.getAttribute("DbManager");
   		if(db==null){
-  			System.out.println("Crea nuovo DbManager registrazione");
   			try {
 				db=new DbManager();
 				scxt.setAttribute("DbManager", db);

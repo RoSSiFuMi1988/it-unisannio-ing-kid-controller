@@ -41,7 +41,6 @@ public class Impostazione extends HttpServlet {
 		ServletContext scxt = sc.getServletContext();
   		db=(DbManager) scxt.getAttribute("DbManager");
   		if(db==null){
-  			System.out.println("Crea nuovo DbManager impostazione");
   			try {
 				db=new DbManager();
 			} catch (Exception e) {}
@@ -67,7 +66,7 @@ public class Impostazione extends HttpServlet {
 		int status=Integer.parseInt(tk.nextToken());
 		accuratezza = Integer.parseInt(tk.nextToken());
 		String latitudine=tk.nextToken();
-		String longitudine=tk.nextToken();
+		String longitudine=(String) tk.nextToken().subSequence(0, 10);
 		if(status != 200){
 			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"3; url=gestore.html\"></head>");
 			pw.println("<body><h1 align=\"center\">Indirizzo errato stai per essere reindirizzato</h1></body></html>");
@@ -76,9 +75,9 @@ public class Impostazione extends HttpServlet {
 			HttpSession session=request.getSession(false);
 			String imei=(String) session.getAttribute("imei");
 			try {
-				db.insertPreference(imei, latitudine, longitudine, raggio);
+				db.setLocation(imei, latitudine, longitudine, raggio);
 			} catch (Exception e) {	e.printStackTrace();  }
-			pw.println("<html><head><title>Coordinate</title></head>");
+			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"5; url=gestore.html\"><title>Coordinate</title></head>");
 			pw.println("<body><h1 align=\"center\">Coordinate relative all'indirizzo inserito: </h1>");
 			pw.println("Latitudine: "+latitudine+" Longitudine: "+longitudine+" </body></html>");
 		}
@@ -87,5 +86,4 @@ public class Impostazione extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

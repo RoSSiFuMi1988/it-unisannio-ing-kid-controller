@@ -32,32 +32,29 @@ public class DbManager {
 		db.insertUser(email, password, campo, imei);
 	}
 
-	public void insertPreference(String imei, String latitudine, String longitudine, int raggio) throws Exception {
+	public void setLocation(String imei, String latitudine, String longitudine, int raggio) throws Exception {
 		db.setLocation(imei, latitudine, longitudine, raggio);	
 	}
 	
-	public void changePreferenceSms(String email, int num){
-		
+	public void changePreference(String email, Notify c) throws Exception{
+		db.setPreference(email, c);
 	}
 
-	public void changePreferenceEmail(String email, String sms_email) {
-		
-	}
-
-	public void insertCoordinate(String lat, String lng, String imei) {
-		
+	public void insertCoordinate(String lat, String lng, String imei) throws Exception {
+		db.setPosition(imei, lat, lng);
 	}
 
 	public Location coordinateImpostate(String imei) {
-		return null;
+		Location c = db.getLocation(imei);
+		return c;
 	}
 
-	public void setStato(String imei, String string) {
-		
+	public void setStato(String imei, String stato) throws Exception {
+		db.setState(imei, stato);
 	}
-	
-	
-	
 
-
+	public String getState(String imei) {
+		String state=db.getState(imei);
+		return state;
+	}
 }
