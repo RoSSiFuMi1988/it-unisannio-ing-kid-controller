@@ -72,6 +72,7 @@ public class LoginActivity extends Activity {
 			this.startService(i);
 			
 			
+			
 		}
 		else if(view.getId()==R.id.register){//qui si dovra connettere ad internet verso il server per la registrazione
 			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.it"));

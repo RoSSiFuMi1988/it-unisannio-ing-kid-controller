@@ -16,7 +16,7 @@ public class WebLoginService extends LoginService {
 
 
 
-	private static final String  URI ="http://robertofalzarano.no-ip.org/KidControllerServer";;//l'indirizzo dove è hostato il server
+	private static final String  URI ="http://robertofalzarano.no-ip.org/KidC";//l'indirizzo dove è hostato il server
 	private static final String EMAIL="email",
 												PASSWORD="password",
 												IMEI="imei";
@@ -35,7 +35,7 @@ public class WebLoginService extends LoginService {
 		
 		StatusLine statusline = this.sendRequest(completeUri);
 		
-		if(statusline.getStatusCode()== HttpStatus.SC_OK) return LOGIN_OK;		
+		if(statusline.getStatusCode()== HttpStatus.SC_OK) return LOGIN_OK;
 		else return LOGIN_FAIL;
 	}
 
