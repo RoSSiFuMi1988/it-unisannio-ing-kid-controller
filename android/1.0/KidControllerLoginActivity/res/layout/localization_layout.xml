@@ -8,13 +8,15 @@
         android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start" />
+        android:text="start"
+        android:onClick="onClickButton" />
 
     <Button
         android:id="@+id/buttonStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="stop" />
+        android:text="stop"
+        android:onClick="onClickButton" />
 
     <LinearLayout
         android:id="@+id/linearLayoutLocalization"

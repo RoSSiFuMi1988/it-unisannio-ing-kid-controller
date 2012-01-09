@@ -1,27 +1,23 @@
 package unisannio.kidController.Location;
 
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.widget.Toast;
 
 public class MyLocation {
-    private Timer timer1,timer2;
+   
     private LocationManager lm;
     private LocationResult locationResult;
     private boolean gps_enabled=false;
     private boolean network_enabled=false;
     private final static int SECOND = 1000;
-    public static final int TIME_FOR_DETECT= 70*SECOND; 
+    private static final int TIME_FOR_DETECT= 70*SECOND; 
     public static final int DELAY_BETWEEN_DETECT = 60*SECOND*5+TIME_FOR_DETECT;
-    public static final int ACCURACY = 100;
+    public static final int MIN_ACCURACY = 100;
     private int time_for_detect;
     
     
@@ -59,8 +55,7 @@ public class MyLocation {
         	Toast.makeText(context,"La rete cellulare per il rilevamento della posizione non è attiva." +
         			"Se si desidera usarla bisognera' riavviare l'applicazione dopo la sua attivazione" , Toast.LENGTH_LONG).show();
         time_for_detect=TIME_FOR_DETECT;	
-        timer1=new Timer();
-        timer1.schedule(new FindLocation(), SECOND, DELAY_BETWEEN_DETECT);
+        this.findLocation();
        
         return true;
     }
@@ -70,8 +65,7 @@ public class MyLocation {
         	/*
         	 * if change location, timer2 will be cancelled and the location from gps will become actual location
         	 */
-        	if(location.getAccuracy()<ACCURACY){
-	            timer2.cancel();
+        	if(location.getAccuracy()<MIN_ACCURACY){
 	            locationResult.gotLocation(location);
 	            lm.removeUpdates(this);
 	            if(time_for_detect!=TIME_FOR_DETECT) time_for_detect=TIME_FOR_DETECT;
@@ -84,76 +78,74 @@ public class MyLocation {
         public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
 
-
-
-    
-    /*
-     * Task that link the listener with provider
-     */
-    class FindLocation extends TimerTask{
-
-    	Handler mHandler = new Handler(Looper.getMainLooper());
-    	
-		@Override
-		public void run() {
-			
-			mHandler.post(new Runnable() {
-				
-				@Override
-				public void run() {
-					if(gps_enabled)
-						lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);				
-			        if(network_enabled)
-			        	lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-			        	
-			        timer2=new Timer();
-			        timer2.schedule(new GetLastLocation(), time_for_detect);
-					
-				}
-			});
-			
-		}
-    	
+    //ferma il rilevamento della posizione
+    public void stopLocation(){
+    	try{
+    		lm.removeUpdates(locationListener);
+    	} catch (Exception e){
+    		//non fare nulla nel caso il listener non sia associato
+    	}    	
     }
     
+    /*
+     * link the listener with provider
+     */
+    public void findLocation(){
+    	
+			if(gps_enabled)
+				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);				
+	        if(network_enabled)
+	        	lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+	        try {
+				Thread.sleep(time_for_detect);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        getLastLocation();
+    }
+    
+
     /*
      * Task that return lastKnowLocation
-     */
-    class GetLastLocation extends TimerTask {
-        @Override
-        public void run() {
-        	Date time = new Date();//creo una nuova variabile data
-        	
-             lm.removeUpdates(locationListener);
+     */    
+    public void getLastLocation(){
+    	Date time = new Date();//creo una nuova variabile data
+    	
+        lm.removeUpdates(locationListener);
 
-             Location net_loc=null, gps_loc=null;
-             if(gps_enabled)
-                 gps_loc=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-             if(network_enabled)
-                 net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        Location net_loc=null, gps_loc=null;
+        if(gps_enabled)
+            gps_loc=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(network_enabled)
+            net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-             //if there are both values use the latest one
-             if(gps_loc!=null && net_loc!=null){
-                 if(gps_loc.getTime()>net_loc.getTime())
-                	 locationResult.gotLocation(gps_loc);
-                 else
-                	 if(net_loc.getTime()<time.getTime() )// the value of net_loc.getTime() must be less than time.getTime
-                		 locationResult.gotLocation(net_loc);
-                 return;
-             }
-
-             if(gps_loc!=null){
-                 locationResult.gotLocation(gps_loc);
-                 return;
-             }
-             if(net_loc!=null){
-                 locationResult.gotLocation(net_loc);
-                 return;
-             }
-             locationResult.gotLocation(null);
+        //if there are both values use the latest one
+        if(gps_loc!=null && net_loc!=null){
+            if(gps_loc.getTime()>net_loc.getTime())
+           	 locationResult.gotLocation(gps_loc);
+            else
+           	 if(net_loc.getTime()<time.getTime() )// the value of net_loc.getTime() must be less than time.getTime
+           		 locationResult.gotLocation(net_loc);
+            return;
         }
+
+        if(gps_loc!=null){
+            locationResult.gotLocation(gps_loc);
+            return;
+        }
+        if(net_loc!=null){
+            locationResult.gotLocation(net_loc);
+            return;
+        }
+        locationResult.gotLocation(null);
+
     }
 
+    public int getTimeForDetect(){
+    	return time_for_detect;
+    }
+    
     /*
      *this is an abstract class to do something whit location 
      */

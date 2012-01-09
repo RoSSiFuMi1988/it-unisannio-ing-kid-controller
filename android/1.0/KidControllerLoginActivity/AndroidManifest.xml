@@ -23,6 +23,7 @@
         <service android:name="WebLoginService">
         </service>
         <activity android:name=".Location.LocalizationActivity"></activity>
+        <service android:name=".Location.LocalizationService"></service>
         
     </application>
 
