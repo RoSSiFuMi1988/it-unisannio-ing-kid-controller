@@ -20,7 +20,7 @@ public class MyLocation {
     private boolean network_enabled=false;
     private final static int SECOND = 1000;
     public static final int TIME_FOR_DETECT= 70*SECOND; 
-    public static final int DELAY_BETWEEN_DETECT = 20*SECOND/*5+TIME_FOR_DETECT*/;
+    public static final int DELAY_BETWEEN_DETECT = 60*SECOND*5+TIME_FOR_DETECT;
     public static final int ACCURACY = 100;
     private int time_for_detect;
     
