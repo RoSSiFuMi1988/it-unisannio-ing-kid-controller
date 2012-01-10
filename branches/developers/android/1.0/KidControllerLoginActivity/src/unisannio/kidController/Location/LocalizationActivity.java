@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class LocalizationActivity extends Activity {
 
 	private static boolean service_started = false;
+	private final static String SERVICE_START="geolocalizzazione del device avviata",
+												SERVICE_STOP="geolocalizzazione del device fermata";
 	
 	public void onCreate(Bundle bundle){
 		super.onCreate(bundle);
@@ -43,6 +46,7 @@ public class LocalizationActivity extends Activity {
 			this.startService(localizationService);
 			service_started = true;
 			
+			
 			/*
 			 * qui si ritorna all'attivita di login in modo tale 
 			 * che se si volesse bloccare  la geolocalizzazione bisognerebbe
@@ -50,6 +54,7 @@ public class LocalizationActivity extends Activity {
 			 */
 			Intent returnBack = new Intent(this, LoginActivity.class);
 			this.startActivity(returnBack);
+			Toast.makeText(this, SERVICE_START, Toast.LENGTH_LONG).show();
 		}break;
 		case R.id.buttonStop:{
 			Button stop = (Button) findViewById(R.id.buttonStop);
@@ -58,7 +63,8 @@ public class LocalizationActivity extends Activity {
 			start.setEnabled(true);
 			localizationService.putExtra("startstop", LocalizationService.STOP);
 			stopService(localizationService);
-			service_started = true;
+			service_started = false;
+			Toast.makeText(this, SERVICE_STOP, Toast.LENGTH_LONG).show();
 		}break;
 		}
 	}
