@@ -6,17 +6,11 @@
 
     <Button
         android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="start"
-        android:onClick="onClickButton" />
-
-    <Button
-        android:id="@+id/buttonStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="stop"
-        android:onClick="onClickButton" />
+        android:layout_weight="0.45"
+        android:onClick="onClickButton"
+        android:text="start" />
 
     <LinearLayout
         android:id="@+id/linearLayoutLocalization"
@@ -25,10 +19,12 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listViewLocalization"
+    <Button
+        android:id="@+id/buttonStop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.49"
+        android:onClick="onClickButton"
+        android:text="stop" />
 
 </LinearLayout>
