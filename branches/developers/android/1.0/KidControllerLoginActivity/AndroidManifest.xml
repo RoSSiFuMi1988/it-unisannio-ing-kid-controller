@@ -26,8 +26,7 @@
         <activity android:name=".Location.LocalizationActivity"></activity>
         <service android:name=".Location.LocalizationService"
             		android:exported="false"></service>
-        <service android:name=".Location.LocalizationService2"
-            		android:exported="false"></service>
+        <activity android:name=".Register.RegisterActivity"></activity>
         
     </application>
 
