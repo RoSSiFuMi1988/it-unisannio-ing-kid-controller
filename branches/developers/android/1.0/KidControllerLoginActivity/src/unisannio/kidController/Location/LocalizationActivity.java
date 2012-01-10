@@ -1,16 +1,12 @@
 package unisannio.kidController.Location;
 
-import java.util.ArrayList;
-
 import unisannio.kidController.LoginActivity;
 import unisannio.kidController.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 public class LocalizationActivity extends Activity {
 
