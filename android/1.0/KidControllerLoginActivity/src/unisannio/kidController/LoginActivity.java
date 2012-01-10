@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -32,6 +33,8 @@ public class LoginActivity extends Activity {
 	private EditText username,password;
 	private CheckBox rememberPassword;
 	private Button login;
+	private TextView imeiText;
+	private String imei;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -41,7 +44,13 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.PasswordEditText);
 		rememberPassword=(CheckBox) findViewById(R.id.rememberPasswordCheckBox);
 		login=(Button) findViewById(R.id.loginButton);
+		imeiText = (TextView) findViewById(R.id.imeiText);
 	
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		imei = tm.getDeviceId();
+		
+		imeiText.setText("imei : "+imei);
+		
 		//rispristino i valori esistenti prima che l'attivita venisse killata
 		this.onRestoreInstanceState(savedInstanceState);
 		
@@ -67,8 +76,8 @@ public class LoginActivity extends Activity {
 			Intent i = new Intent(LoginActivity.this, loginService);
 			i.putExtra("USERNAME", username.getText().toString());
 			i.putExtra("PASSWORD", password.getText().toString());
-			TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-			i.putExtra("IMEI", tm.getDeviceId());
+			
+			i.putExtra("IMEI", imei);
 			this.startService(i);
 			
 			

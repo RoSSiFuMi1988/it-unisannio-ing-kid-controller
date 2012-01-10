@@ -3,68 +3,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/usernameEditText"
-        android:layout_width="182dp"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_x="4dp"
-        android:layout_y="109dp"
-        android:inputType="textPersonName"
-        android:text="Username" 
-        android:selectAllOnFocus= "true"/>
+        android:layout_y="2dp" >
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="294dp"
-        android:layout_height="wrap_content"
-        android:layout_x="16dp"
-        android:layout_y="424dp"
-        android:onClick="callIntent"
-        android:text="@string/Register" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" 
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/usernameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="12dp"
-        android:layout_y="77dp"
-        android:text="Username:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Username:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_x="4dp"
+            android:layout_y="109dp"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:text="Username" >
+           	</EditText>
 
-    <TextView
-        android:id="@+id/passwordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="12dp"
-        android:layout_y="164dp"
-        android:text="Password:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/passwordTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Password:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/PasswordEditText"
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:layout_x="6dp"
-        android:layout_y="199dp"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        android:text="Password" />
+        	<EditText
+            android:id="@+id/PasswordEditText"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_x="6dp"
+            android:layout_y="199dp"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:text="Password" />
 
-    <CheckBox
-        android:id="@+id/rememberPasswordCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="6dp"
-        android:layout_y="248dp"
-        android:text="Remember password" />
+        	<CheckBox
+            android:id="@+id/rememberPasswordCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_x="6dp"
+            android:layout_y="248dp"
+            android:text="Remember password" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_x="7dp"
-        android:layout_y="293dp"
-        android:onClick="callIntent"
-        android:text="Login" />
+        	<Button
+            android:id="@+id/loginButton"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_x="7dp"
+            android:layout_y="293dp"
+            android:onClick="callIntent"
+            android:text="Login" />
 
+        	<Button
+        	    android:id="@+id/register"
+        	    android:layout_width="294dp"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:onClick="callIntent"
+        	    android:text="@string/Register" />
+
+        	<TextView
+        	    android:id="@+id/imeiText"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:text="imei: " />
+            
+        </LinearLayout>
+        
+        
+    </ScrollView>
+    
 </AbsoluteLayout>

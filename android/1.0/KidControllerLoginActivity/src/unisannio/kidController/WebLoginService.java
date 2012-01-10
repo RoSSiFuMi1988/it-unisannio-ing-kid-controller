@@ -16,7 +16,7 @@ public class WebLoginService extends LoginService {
 
 
 
-	private static final String  URI ="http://robertofalzarano.no-ip.org/KidC";//l'indirizzo dove è hostato il server
+	private static final String  URI ="http://erny1790.no-ip.biz/KidC";//l'indirizzo dove è hostato il server
 	private static final String EMAIL="email",
 												PASSWORD="password",
 												IMEI="imei";
