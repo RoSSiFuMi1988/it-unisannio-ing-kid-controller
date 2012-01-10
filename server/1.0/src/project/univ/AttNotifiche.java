@@ -2,6 +2,7 @@ package project.univ;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpStatus;
-
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/AttNotifiche")
+public class AttNotifiche extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
 	private ServletConfig sc;
@@ -24,7 +23,7 @@ public class login extends HttpServlet {
 		this.sc=sc;
 	}
 	
-    public login() {
+    public AttNotifiche() {
         super();
     }
 
@@ -37,26 +36,18 @@ public class login extends HttpServlet {
 				scxt.setAttribute("DbManager", db);
 			} catch (Exception e) {}
   		}
-		PrintWriter pw=response.getWriter();
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String imei = request.getParameter("imei");
-		boolean trovato=db.trova(email, password, imei);
-		if(trovato==true){
-			session=request.getSession(true);
-			session.setAttribute("email", email);
-			session.setAttribute("imei", imei);
-			response.setStatus(HttpStatus.SC_OK);
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"0; url=gestore.html\"></head>");
-		}
-		else{
-			response.setStatus(HttpStatus.SC_ACCEPTED);
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-			pw.println("<body><h1>You wrong your email or password</h1></body></html>");
-		}
+  		session = request.getSession();
+  		String imei = (String) session.getAttribute("imei");
+  		try {
+			db.setStato(imei, "disattivato");
+		} catch (Exception e) {	e.printStackTrace(); }
+  		PrintWriter pw=response.getWriter();
+  		pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
+		pw.println("<body><h1>Le notifiche legate al dispositovo, sono state disattivate.</h1></body></html>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+
 }

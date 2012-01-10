@@ -31,9 +31,10 @@ public class TestDb {
 		DbManager c=new DbManager();
 		c.setLocation("ernestorusso@libero.it", "41.0222190", "14.6168570", 2);
 
-// setPosition
-		database.setPosition("paviliondv5", "40.1234", "40.1234");
- 
+
+//setPosition
+//		database.setPosition("356652040376772", "45.468799", "9.186516");
+
 // setState
 		String c4=database.getState("rb0011");
 		System.out.println("Stato: "+c4);
@@ -48,9 +49,10 @@ public class TestDb {
 //SetPreference Sms-Email_notifica
 		Notify c=new Notify("email_notifica", "ernestorusso@libero.it");
 		database.setPreference("ernestorusso@libero.it", c);	
-*/	
+	
 		Location l = database.trovaPosizione("paviliondv5");
 		System.out.println("Latitudine: "+l.getLatitudine()+" Longitudine: "+l.getLongitudine());
-	
+*/
 	}
+	
 }

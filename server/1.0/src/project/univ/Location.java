@@ -3,9 +3,9 @@ package project.univ;
 public class Location {
 	private String latitudine;
 	private String longitudine;
-	private String raggio;
+	private double raggio;
 	
-	public Location(String latitudine, String longitudine, String raggio) {
+	public Location(String latitudine, String longitudine, double raggio) {
 		super();
 		this.latitudine = latitudine;
 		this.longitudine = longitudine;
@@ -28,11 +28,11 @@ public class Location {
 		this.longitudine = longitudine;
 	}
 
-	public String getRaggio() {
+	public double getRaggio() {
 		return raggio;
 	}
 
-	public void setRaggio(String raggio) {
+	public void setRaggio(double raggio) {
 		this.raggio = raggio;
 	}
 	

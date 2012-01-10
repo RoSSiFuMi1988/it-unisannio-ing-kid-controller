@@ -25,7 +25,7 @@ public class Impostazione extends HttpServlet {
 	private int accuratezza;
 	@SuppressWarnings("unused")
 	private int l;
-	private int raggio;
+	private double raggio;
 	private ServletConfig sc;
 	private DbManager db;
 	
@@ -49,7 +49,7 @@ public class Impostazione extends HttpServlet {
 		PrintWriter pw=response.getWriter();
 		String localita=request.getParameter("localita");
 		String localita1=localita.replaceAll(" ", "+");
-		raggio = Integer.parseInt(request.getParameter("raggio"));
+		raggio = Double.parseDouble(request.getParameter("raggio"));
 		String url="https://maps.google.com/maps/geo?output=csv&q="+localita1;
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(url);
