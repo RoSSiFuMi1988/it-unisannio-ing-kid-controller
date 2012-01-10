@@ -20,11 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.telephony.TelephonyManager;
 
 public class LocalizationService extends IntentService {
 
-	private static final String  URI ="http://robertofalzarano.no-ip.org/KidC",//l'indirizzo dove è hostato il server
+	private static final String  URI ="http://erny1790.no-ip.biz/KidC",//l'indirizzo dove è hostato il server
 												ACTION="Coordinate",
 												LAT="lat",
 												LON="lon",
@@ -39,6 +40,7 @@ public class LocalizationService extends IntentService {
 	private CharSequence tickerText;
 	private Context context;
 	private CharSequence contentTitle;
+	private PowerManager.WakeLock wl;
 
 	
 	public LocalizationService() {
@@ -54,8 +56,10 @@ public class LocalizationService extends IntentService {
 		
 		int status = arg0.getIntExtra("startstop", START);
 		myL = new MyLocation();
-		
-		if(status == START){
+		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Location service lock");
+		wl.acquire();
+		//if(status == START){
 				nm = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
 			
 				icon =R.drawable.ic_menu_info_details;
@@ -64,22 +68,22 @@ public class LocalizationService extends IntentService {
 						
 				context = getApplicationContext();
 				contentTitle = "Location notify";
-			while(true){
+			
 				myL.getLocation(this, result);
-				try {
-					Thread.sleep(MyLocation.DELAY_BETWEEN_DETECT);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}	
-			else if(status == STOP){
-				this.stopSelf();
 				
-			}
+				while(true){
+					try {
+						Thread.sleep(600*1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+		//}	
 	}
 	
 	public void onDestroy(){
+		wl.release();
 		myL.stopLocation();
 		super.onDestroy();
 	}
@@ -89,6 +93,7 @@ public class LocalizationService extends IntentService {
 
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpResponse response;
+		
 		try {
 			response = httpclient.execute(new HttpGet(completeUri));
 			return response.getStatusLine();
