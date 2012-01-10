@@ -5,12 +5,12 @@ package unisannio.kidController;
 
 
 
+import unisannio.kidController.Register.RegisterActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -86,7 +86,7 @@ public class LoginActivity extends Activity {
 			
 		}
 		else if(view.getId()==R.id.register){//qui si dovra connettere ad internet verso il server per la registrazione
-			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.it"));
+			Intent i = new Intent(this, RegisterActivity.class);
 			this.startActivity(i);
 		}
 	}
