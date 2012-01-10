@@ -64,6 +64,8 @@ public class LoginActivity extends Activity {
 			if(!notLogged)
 				Toast.makeText(getApplicationContext(), "username e/o password errati", Toast.LENGTH_LONG).show();
 		}
+		
+		
 	}
 	
 	/*
@@ -165,8 +167,16 @@ public class LoginActivity extends Activity {
 			this.rememberPassword.setChecked(isChecked);
 			this.password.setText("Password");
 		}
-		
-		
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	public void onBackPressed(){
+		Intent back = new Intent(Intent.ACTION_MAIN);
+		back.addCategory(Intent.CATEGORY_HOME);
+		this.startActivity(back);
 		
 	}
 }
