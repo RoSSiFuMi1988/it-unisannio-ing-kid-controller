@@ -6,7 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=false&amp;key=ABQIAAAAsTU_haZJUjhfvVieYIWe2BSSFZRuCwT99RuvQjUm_FDNm1Fj6RTCLzKicDe2QNZmWimWkmFoGB0pdg" 
+<!-- chiave mappa di ernesto -->
+<script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=false&amp;key=ABQIAAAAlGa2VqYOASraNv9ZURE43xS-I694MGUuRqMBpCJkKeEjfTngCBSFzWz6dHQxzq17qUBwGg47JrzjMg" 
 		type="text/javascript"></script>
 
 <%String s=(String)request.getSession().getAttribute("imei"); %>
@@ -20,7 +21,7 @@ function load() {
 		map.addControl(new GLargeMapControl());
 		map.addControl(new GScaleControl());
 		var center = new GLatLng(41.028089,14.618969);
-		map.setCenter(center, 10);
+		map.setCenter(center, 15);
 		var begin = function(){
 			GDownloadUrl("provax.php?imei="+val, function(data, responseCode) {
 			var xml = GXml.parse(data);
@@ -35,6 +36,7 @@ function load() {
 				marker1 = new GMarker(punto, {title: "Sono qui"});
 				map.addOverlay(marker1);
 				map.setCenter(punto,10);
+				map.setZoom( 16 );
 			}
 		}).periodical(3000);
 		};

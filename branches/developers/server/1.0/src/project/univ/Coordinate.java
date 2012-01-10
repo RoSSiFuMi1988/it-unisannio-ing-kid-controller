@@ -2,6 +2,8 @@ package project.univ;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,11 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpStatus;
+
 @WebServlet("/Coordinate")
 public class Coordinate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ServletConfig sc;
 	private DbManager db;
+	private Notify notifica;
 	
 	public void init(ServletConfig sc){
 		this.sc=sc;
@@ -33,49 +38,82 @@ public class Coordinate extends HttpServlet {
 				scxt.setAttribute("DbManager", db);
 			} catch (Exception e) {}
   		}
+  		response.setStatus(HttpStatus.SC_OK);
   		PrintWriter pw = response.getWriter();
     	Double lat = Double.parseDouble(request.getParameter("lat"));
-    	Double lng = Double.parseDouble(request.getParameter("lng"));
+    	Double lng = Double.parseDouble(request.getParameter("lon"));
     	String imei=request.getParameter("imei");
     	Location pos = db.coordinateImpostate(imei);
     	Double latitudine = Double.parseDouble(pos.getLatitudine());
     	Double longitudine = Double.parseDouble(pos.getLongitudine());
-    	Double dist =  Math.acos(Math.sin(latitudine)*Math.sin(lat) + Math.cos(latitudine)*Math.cos(lat) * Math.cos(longitudine-lng));
-		Double dist1 = dist*6371;
-		Double distanza = Double.parseDouble(pos.getRaggio());
-		String stato = db.getState(imei);		// Preleva stato
+    	Double pi=180/Math.PI;
+    	Double dist =  Math.acos(Math.sin(latitudine/pi)*Math.sin(lat/pi) + Math.cos(latitudine/pi)*Math.cos(lat/pi) * Math.cos((longitudine/pi)-(lng/pi)));
+		Double dist1 = dist*6371;				//distanza calcolata tra punto impostato e posizione attuale
+		Double distanza = pos.getRaggio();		//distanza max impostata
+		String stato = db.getState(imei);
+		try {
+			notifica = db.sendNotify(imei);
+		} catch (Exception e1) {	e1.printStackTrace();		}
+
+		System.out.println(notifica.getType()+" "+notifica.getAddr()+" "+stato);
+		
 		switch (stato){
-			case ("Disattivato"):
+			case ("disattivato"):
 				break;
-			case ("Fuori"):
+			case ("fuori"):
 				if(dist1<distanza){
-					// Invia SMs entrato
+					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
+						request.setAttribute("to", notifica.getAddr());
+						request.setAttribute("state", stato);
+						request.setAttribute("text", "Il dispositovo è entrato nell'area impostata.");
+						String address="SendMail";
+						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+						dispatcher.forward(request, response);
+						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+					}					
 					try {
 						db.setStato(imei, "Entrato");
+						System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) { e.printStackTrace(); }
 				}
 			break;
-			case("Entrato"):
+			case("entrato"):
 				if(distanza<dist1){
-					// Invia Sms uscito
+					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
+						request.setAttribute("to", notifica.getAddr());
+						request.setAttribute("state", stato);
+						request.setAttribute("text", "Il dispositovo è uscito dall'area impostata.");
+						String address="SendMail";
+						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+						dispatcher.forward(request, response);
+						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+					}
 					try {
 						db.setStato(imei, "Fuggitivo");
+						System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) {	e.printStackTrace(); }
 				}
 			break;
-			case("Fuggitivo"):
+			case("fuggitivo"):
 				if(dist1<distanza){
-					// Invia SMs tornato
+					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
+						request.setAttribute("to", notifica.getAddr());
+						request.setAttribute("state", stato);
+						request.setAttribute("text", "Il dispositivo è rientrato nell'area impostata.");
+						String address="SendMail";
+						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+						dispatcher.forward(request, response);
+						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+					}
 					try {
 						db.setStato(imei, "Entrato");
+						System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) { e.printStackTrace(); }
 				}
 		}
     	try {
 			db.insertCoordinate(lat.toString(), lng.toString(), imei);
 		} catch (Exception e) { e.printStackTrace(); }
-    	pw.println("<HTML><HEAD><TITLE>Coordinate</TITLE></HEAD><BODY>La distanza tra i due punti è di km: "+dist1+"</BODY></HTML>");
-    	
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

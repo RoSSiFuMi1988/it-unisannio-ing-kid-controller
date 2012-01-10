@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/SendMail")
 public class SendMail extends HttpServlet {
@@ -37,10 +38,15 @@ public class SendMail extends HttpServlet {
     
         
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		String FROM="erny1790@gmail.com";	//request.getParameter("text1");
-        	String TO = request.getParameter("text2");
-        	String SUBJECT = request.getParameter("text3");
-        	String TEXT = request.getParameter("area1");
+    		String FROM="erny1790@gmail.com";   		
+    		String TO = (String) request.getAttribute("to");
+        	String SUBJECT = (String) request.getAttribute("state");
+        	String TEXT = (String) request.getAttribute("text");
+    		/* EMAIL HTML
+ 			String TO = (String) request.getParameter("to");
+        	String SUBJECT = (String) request.getParameter("state");
+        	String TEXT = (String) request.getParameter("text");
+    		 */
         	 
         				Properties props = new Properties();
         	 	        props.put("mail.smtp.host", HOST);

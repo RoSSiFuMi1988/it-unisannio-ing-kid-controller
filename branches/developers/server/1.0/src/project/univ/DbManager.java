@@ -32,7 +32,7 @@ public class DbManager {
 		db.insertUser(email, password, campo, imei);
 	}
 
-	public void setLocation(String imei, String latitudine, String longitudine, int raggio) throws Exception {
+	public void setLocation(String imei, String latitudine, String longitudine, double raggio) throws Exception {
 		db.setLocation(imei, latitudine, longitudine, raggio);	
 	}
 	
@@ -56,5 +56,10 @@ public class DbManager {
 	public String getState(String imei) {
 		String state=db.getState(imei);
 		return state;
+	}
+
+	public Notify sendNotify(String imei) throws Exception{
+		Notify c=db.sendNotify(imei);
+		return c;
 	}
 }

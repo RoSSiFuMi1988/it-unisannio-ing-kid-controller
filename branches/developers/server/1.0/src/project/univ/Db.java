@@ -20,7 +20,8 @@ public class Db {
 	
 //	Provato - Funziona
 	public Location getLocation(String imei){
-		String latitudine=null, longitudine=null, raggio = null;
+		String latitudine=null, longitudine=null;
+		double raggio = 0;
 		try{
 			String procedure = "{ call getLocation('"+imei+"') }";
 			st.execute(procedure);
@@ -28,7 +29,7 @@ public class Db {
 			while(rset.next()){
 				latitudine = rset.getString("latitudine");
 				longitudine=rset.getString("longitudine");
-				raggio=rset.getString("raggio");
+				raggio=rset.getDouble("raggio");
 			}
 		}catch( SQLException e ){System.out.println("Error");}
 		return new Location(latitudine, longitudine, raggio);
@@ -111,7 +112,7 @@ public class Db {
 	}
 
 //	Funziona	
-	public void setLocation(String imei, String latitudine, String longitudine, int raggio) throws Exception{
+	public void setLocation(String imei, String latitudine, String longitudine, double raggio) throws Exception{
 		String procedure = "{ call setLocation('"+ imei+"','"+latitudine+"','"+longitudine+"','"+ raggio+"') }";
 		st.executeUpdate(procedure);
 	}
@@ -149,7 +150,8 @@ public class Db {
 	}
 	
 	public Location trovaPosizione(String imei) throws Exception{
-		String latitudine=null, longitudine=null, raggio=null;
+		String latitudine=null, longitudine=null;
+		double raggio=0;
 		String procedure = "{ call trovaPosizione('"+imei+"')}";
 		st.execute(procedure);
 		ResultSet rset = st.getResultSet();
