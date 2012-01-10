@@ -2,6 +2,7 @@ package unisannio.kidController.Location;
 
 import java.util.ArrayList;
 
+import unisannio.kidController.LoginActivity;
 import unisannio.kidController.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,19 +14,22 @@ import android.widget.ListView;
 
 public class LocalizationActivity extends Activity {
 
-	private ArrayList<String> array;
-	private ArrayAdapter<String> aa;
-	
+	private static boolean service_started = false;
 	
 	public void onCreate(Bundle bundle){
 		super.onCreate(bundle);
 		setContentView(unisannio.kidController.R.layout.localization_layout);
 		
-		final ListView listView = (ListView) findViewById(unisannio.kidController.R.id.listViewLocalization);
-			
-		array = new ArrayList<String>();
-		aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array);
-		listView.setAdapter(aa);
+		Button stop = (Button) findViewById(R.id.buttonStop);
+		Button start = (Button) findViewById(R.id.buttonStart);
+		if(service_started){
+			stop.setEnabled(true);
+			start.setEnabled(false);
+		}
+		else{
+			stop.setEnabled(false);
+			start.setEnabled(true);
+		}
 					
 		
 	}
@@ -40,8 +44,16 @@ public class LocalizationActivity extends Activity {
 			stop.setEnabled(true);
 			Button start = (Button) findViewById(R.id.buttonStart);
 			start.setEnabled(false);
-			localizationService.putExtra("startstop", LocalizationService.START);
 			this.startService(localizationService);
+			service_started = true;
+			
+			/*
+			 * qui si ritorna all'attivita di login in modo tale 
+			 * che se si volesse bloccare  la geolocalizzazione bisognerebbe
+			 * rifare il login
+			 */
+			Intent returnBack = new Intent(this, LoginActivity.class);
+			this.startActivity(returnBack);
 		}break;
 		case R.id.buttonStop:{
 			Button stop = (Button) findViewById(R.id.buttonStop);
@@ -49,7 +61,8 @@ public class LocalizationActivity extends Activity {
 			Button start = (Button) findViewById(R.id.buttonStart);
 			start.setEnabled(true);
 			localizationService.putExtra("startstop", LocalizationService.STOP);
-			stopService(localizationService);			
+			stopService(localizationService);
+			service_started = true;
 		}break;
 		}
 	}
