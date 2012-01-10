@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="499dp" >
+
+        <TextView
+            android:id="@+id/RegisterUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="0.93"
+            android:text="Username:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/RegisterPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/RegisterUsername"
+            android:layout_marginTop="44dp"
+            android:layout_weight="0.93"
+            android:text="Password:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/RegisterUsernameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/RegisterUsername"
+            android:layout_below="@+id/RegisterUsername"
+            android:inputType="textEmailAddress" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/RegisterPasswordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/RegisterUsername"
+            android:layout_below="@+id/RegisterPassword"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/RegisterIMEIEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/RegisterPasswordEditText"
+            android:layout_below="@+id/RegisterPasswordEditText"
+            android:layout_marginTop="38dp"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/RegisterImei"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/RegisterPasswordEditText"
+            android:layout_weight="0.93"
+            android:text="IMEI:"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/RegisterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/RegisterIMEIEditText"
+            android:layout_marginTop="28dp"
+            android:text="Registra"
+            android:onClick="clickButton" />
+
+    </RelativeLayout>
+
+</ScrollView>
