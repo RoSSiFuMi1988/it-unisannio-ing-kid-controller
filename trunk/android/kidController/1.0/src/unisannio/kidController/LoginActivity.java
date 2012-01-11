@@ -86,7 +86,7 @@ public class LoginActivity extends Activity {
 			
 		}
 		else if(view.getId()==R.id.register){//qui si dovra connettere ad internet verso il server per la registrazione
-			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.it"));
+			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://erny1790.no-ip.biz/Kidc/registrazione.html"));
 			this.startActivity(i);
 		}
 	}
