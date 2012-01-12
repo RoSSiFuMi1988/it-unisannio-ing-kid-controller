@@ -28,12 +28,12 @@ import android.telephony.TelephonyManager;
 public class LocalizationService extends Service {
 
 	
-	private static final String  URI ="http://erny1790.no-ip.biz/KidC",//l'indirizzo dove è hostato il server
-			ACTION="Coordinate",
-			LAT="lat",
-			LON="lon",
-			IMEI="imei";
-
+	private static String  URI;// ="http://erny1790.no-ip.biz/KidC";//l'indirizzo dove è hostato il server
+	private static final String ACTION="Coordinate",
+												LAT="lat",
+												LON="lon",
+												IMEI="imei";
+										
 	public final static int LOCATION_ID=12345;
 	public final static int START=0,
 		STOP=1;
@@ -47,6 +47,7 @@ public class LocalizationService extends Service {
 
 	public int onStartCommand(Intent intent, int flags, int startId){
 		myL = new MyLocation();
+		URI=getText(unisannio.kidController.R.string.connection_uri).toString();
 		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Location service lock");
 		wl.acquire();

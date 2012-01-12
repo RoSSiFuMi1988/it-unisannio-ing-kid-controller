@@ -18,8 +18,8 @@ public class RegisterActivity extends Activity {
 	private static final String LAST_USERNAME = "LAST_USERNAME";
 	private static final String LAST_PASSWORD = "LAST_PASSWORD";
 	private static final String LAST_IMEI = "LAST_IMEI";
-	private static final String URI="http://erny1790.no-ip.biz/KidC/",
-												ACTION="registrazione",
+	private static String URI;
+	private static final String	ACTION="registrazione",
 												EMAIL="email",
 												PASS="password",
 												RADIO="radio",
@@ -35,6 +35,7 @@ public class RegisterActivity extends Activity {
 		username = (EditText) findViewById(R.id.RegisterUsernameEditText);
 		password = (EditText) findViewById(R.id.RegisterPasswordEditText);
 		imei = (EditText) findViewById(R.id.RegisterIMEIEditText);
+		URI = getText(R.string.connection_uri).toString();
 		
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		simei = tm.getDeviceId();
