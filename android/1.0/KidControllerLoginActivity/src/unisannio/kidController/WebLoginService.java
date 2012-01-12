@@ -59,8 +59,13 @@ public class WebLoginService extends LoginService {
 	
 	//recupero dei dati dall'intent e costruzione dell'indirizzo per la richiesta	
 	private String completeURI(Intent intent){
+
+	
+		URI=this.getText(R.string.connection_uri).toString();
+
 		
 		URI=this.getText(R.string.connection_uri).toString();
+
 		String username=intent.getStringExtra("USERNAME");
 		String password=intent.getStringExtra("PASSWORD");
 		String imei = intent.getStringExtra("IMEI");
