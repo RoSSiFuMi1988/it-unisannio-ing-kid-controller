@@ -6,5 +6,6 @@
     <string name="coordinate">coordinate</string>
     <string name="location_app">Location Activity</string>
     <string name="Register">Register Now</string>
+    <string name="connection_uri">http://erny1790.no-ip.biz/KidC/</string>
 
 </resources>

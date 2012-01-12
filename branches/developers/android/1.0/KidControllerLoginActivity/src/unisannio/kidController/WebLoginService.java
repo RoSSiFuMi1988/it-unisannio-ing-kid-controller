@@ -16,7 +16,7 @@ public class WebLoginService extends LoginService {
 
 
 
-	private static final String  URI ="http://erny1790.no-ip.biz/KidC";//l'indirizzo dove è hostato il server
+	private static String  URI;//l'indirizzo dove è hostato il server
 	private static final String EMAIL="email",
 												PASSWORD="password",
 												IMEI="imei";
@@ -24,6 +24,7 @@ public class WebLoginService extends LoginService {
 	
 	public WebLoginService() {
 		super("WebLoginService");
+		
 	}
 	
 	
@@ -58,7 +59,8 @@ public class WebLoginService extends LoginService {
 	
 	//recupero dei dati dall'intent e costruzione dell'indirizzo per la richiesta	
 	private String completeURI(Intent intent){
-
+		
+		URI=this.getText(R.string.connection_uri).toString();
 		String username=intent.getStringExtra("USERNAME");
 		String password=intent.getStringExtra("PASSWORD");
 		String imei = intent.getStringExtra("IMEI");
