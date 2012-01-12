@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World!</string>
-    <string name="app_name">KidController</string>
+    <string name="app_name">Kid Controller</string>
     <string name="coordinate">coordinate</string>
     <string name="location_app">Location Activity</string>
     <string name="Register">Register Now</string>
