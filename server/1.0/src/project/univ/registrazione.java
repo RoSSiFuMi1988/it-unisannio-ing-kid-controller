@@ -1,7 +1,7 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,32 +33,39 @@ public class registrazione extends HttpServlet {
 				scxt.setAttribute("DbManager", db);
 			} catch (Exception e) {}
   		}
-		PrintWriter pw = response.getWriter();
+
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		String imei=request.getParameter("imei");
 		String preferenze=request.getParameter("radio");
 		String campo=request.getParameter("campo");
-		boolean trovato = false;
-		try {
-			trovato = db.trovaemail(email);
-		} catch (Exception e) {	}
-		if(trovato==true)
-			pw.println("Email già esistente");
+		if(campo.equalsIgnoreCase("")) campo=email;
+		if(email.equalsIgnoreCase("") || password.equalsIgnoreCase("") || imei.equalsIgnoreCase("") || preferenze.equalsIgnoreCase("")){
+  			String message="I dati inseriti risultano mancanti o errati";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+	  		dispatcher.forward(request, response);
+		}
 		else{
-			boolean c=this.isInteger(campo);
-				System.out.println("Preferenze: "+preferenze+" campo: "+campo);
-				if((preferenze.contains("email") && campo.contains("@")) || (preferenze.contains("sms") && c==true) ){
-					try {
-						db.creauser(email, password, campo, imei);
-					} catch (Exception e) {System.out.println("ERRORE CREAUSER");	}
-					pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-					pw.println("<body>Registrazione Effettuata con successo, attendere il reindirizzamento</body></html>");
+			boolean trovato = false, utentEsistente=false;
+			try {
+				trovato = db.trovaemail(email);
+			} catch (Exception e) {	}
+			if(trovato==true){
+				utentEsistente=db.mailpass(email, password);
+				if(utentEsistente==true){
+					this.insertUsert(campo, preferenze, email, password, imei, request, response);
 				}
 				else{
-					pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=registrazione.html\"></head>");
-					pw.println("<body>Registrazione non riuscita</body></html>");
-				}			
+					String message="L'email risulta già presente nel database";
+					request.setAttribute("messaggio", message);
+			  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+			  		dispatcher.forward(request, response);
+				}
+			}
+			else{
+					this.insertUsert(campo, preferenze, email, password, imei, request, response);	
+			}
 		}
 	}
 
@@ -66,12 +73,33 @@ public class registrazione extends HttpServlet {
 		doGet(request, response);
 	}
 	
-    public boolean isInteger( String input )  
-    {  
+    public boolean isInteger( String input ){  
        try {  
           Long.parseLong(input); 
           return true;  
        }  
        catch( Exception e){ return false; }  
     }  
+    
+    public void insertUsert(String campo, String preferenze, String email, String password, String imei, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	boolean c=this.isInteger(campo);
+		System.out.println("Preferenze: "+preferenze+" campo: "+campo);
+		if((preferenze.contains("email") && campo.contains("@")) || (preferenze.contains("sms") && c==true) ){
+			try {
+				db.creauser(email, password, campo, imei);
+			} catch (Exception e) {System.out.println("ERRORE CREAUSER");	}
+			String message="Registrazione Effettuata con successo</br>Adesso puoi effettuare il login, grazie</br>          Lo staff";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+	  		dispatcher.forward(request, response);
+		}
+		else{
+			String message="Registrazione non riuscita</br>Controlla le credenziali e ritenta";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+	  		dispatcher.forward(request, response);
+		}	
+    }
+    
+    
 }

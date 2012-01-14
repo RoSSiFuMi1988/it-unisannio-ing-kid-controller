@@ -1,8 +1,7 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -41,9 +40,10 @@ public class AttNotifiche extends HttpServlet {
   		try {
 			db.setStato(imei, "disattivato");
 		} catch (Exception e) {	e.printStackTrace(); }
-  		PrintWriter pw=response.getWriter();
-  		pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-		pw.println("<body><h1>Le notifiche legate al dispositovo, sono state disattivate.</h1></body></html>");
+  		String message="Le notifiche legate al dispositovo, sono state disattivate";
+  		request.setAttribute("messaggio", message);
+  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error2.jsp") ;
+  		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

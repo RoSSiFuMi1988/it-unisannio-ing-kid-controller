@@ -16,10 +16,9 @@ public class TestDb {
 // getState
 		String c2=database.getState("bb0011");
 		System.out.println("Stato: "+c2);			//Funziona con le descrizioni dello stato. Modificare lo script su svn
-// login		
+// login
 		String c3=database.login("erny@live.it", "kkk", "bbcf011");
 		System.out.println("Id utente: "+c3);
-		
 // insertUser -Email/Sms	
 //		database.insertUser("mgiovk.russo@libero.it", "Ernesto","3208716992" ,"abcdl");
 			
@@ -41,10 +40,11 @@ public class TestDb {
 		database.setState("rb0011", "entrato");
 		c4=database.getState("rb0011");
 		System.out.println("Stato: "+c4);
-		
+
 // trovaEmail		
 		boolean trov=database.trovaEmail("maur@live.it");
 		System.out.println("Trovato: "+trov);
+
 
 //SetPreference Sms-Email_notifica
 		Notify c=new Notify("email_notifica", "ernestorusso@libero.it");
@@ -52,7 +52,11 @@ public class TestDb {
 	
 		Location l = database.trovaPosizione("paviliondv5");
 		System.out.println("Latitudine: "+l.getLatitudine()+" Longitudine: "+l.getLongitudine());
+
 */
+		String id=database.mailpass("maur@live.it", "23agf");
+		System.out.println("Id utente: "+id);
+		
 	}
 	
 }

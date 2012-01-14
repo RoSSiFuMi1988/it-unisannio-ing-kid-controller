@@ -1,8 +1,7 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +19,12 @@ public class Logout extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
 		session=request.getSession(false);
 		session.invalidate();
-		pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-		pw.println("<body><p align=\"center\"><h1>Sessione Terminata</h1></p></body></html>");
-	}
+		String message="La sessione è stata terminata";
+		request.setAttribute("messaggio", message);
+  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+  		dispatcher.forward(request, response);	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

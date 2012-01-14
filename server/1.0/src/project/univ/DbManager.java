@@ -8,6 +8,21 @@ public class DbManager {
 		db=new Db();
 	}
 	
+	public boolean mailpass(String email, String password) {
+		boolean bool;
+		String trovato;
+		try {
+			trovato = db.mailpass(email, password);
+			if(trovato!=null)
+				bool=true;
+			else
+				bool=false;
+		} catch (Exception e) {
+			bool=false;
+		}
+		return bool;
+	}
+	
 	public boolean trova(String email, String password, String imei) {
 		boolean bool;
 		String trovato;
@@ -60,6 +75,16 @@ public class DbManager {
 
 	public Notify sendNotify(String imei) throws Exception{
 		Notify c=db.sendNotify(imei);
+		return c;
+	}
+	
+	public Location getLocation(String imei){
+		Location c=db.getLocation(imei);
+		return c;
+	}
+	
+	public Position getPostion(String imei){
+		Position c=db.getPosition(imei);
 		return c;
 	}
 }

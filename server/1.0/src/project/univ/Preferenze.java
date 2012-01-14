@@ -1,8 +1,7 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -35,11 +34,16 @@ public class Preferenze extends HttpServlet {
 				scxt.setAttribute("DbManager", db);
 			} catch (Exception e) {}
   		}
-  		PrintWriter pw=response.getWriter();
   		HttpSession session=request.getSession(false);
 		String email=(String) session.getAttribute("email");
 		String preference=request.getParameter("radio");
 		String sms_email=request.getParameter("sms_email");
+		if(sms_email.equalsIgnoreCase("") || preference.equalsIgnoreCase("")){
+  			String message="I dati inseriti risultano mancanti o errati";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+	  		dispatcher.forward(request, response);
+		}
 		String preference1 = "sms";
 		if(preference.equalsIgnoreCase("email"))
 			preference1="email_notifica";
@@ -47,13 +51,17 @@ public class Preferenze extends HttpServlet {
 		if( (preference.equalsIgnoreCase("email")&&sms_email.contains("@")) || (preference.equalsIgnoreCase("sms")&&this.isInteger(sms_email)) ){
 			try {
 				db.changePreference(email, c);
-				pw.println("<html><head><meta http-equiv=\"refresh\" content=\"5; url=gestore.html\"></head>");
-				pw.println("<body>Preferenze delle notifiche modificate con successo</body>");
+				String message="Modalità di notifica modificata con successo</br>";
+				request.setAttribute("messaggio", message);
+		  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error2.jsp") ;
+		  		dispatcher.forward(request, response);
 			} catch (Exception e) {	e.printStackTrace(); }
 		}
 		else{
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"5; url=gestore.html\"></head>");
-			pw.println("<body>Impossibile cambiare le preferenze per le notifiche.<br> La preghiamo di riprovare, Grazie</body>");
+			String message="Impossibile cambiare le preferenze per le notifiche.<br> La preghiamo di riprovare, Grazie</br>              Lo Staff";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error2.jsp") ;
+	  		dispatcher.forward(request, response);
 		}
 	}
 
