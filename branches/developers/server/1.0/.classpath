@@ -47,5 +47,6 @@
 	<classpathentry kind="lib" path="C:/Users/Ernesto/Desktop/apache-tomcat-7.0.22/lib/tomcat-i18n-ja.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ernesto/Desktop/apache-tomcat-7.0.22/lib/tomcat-jdbc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ernesto/Desktop/apache-tomcat-7.0.22/lib/tomcat-util.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

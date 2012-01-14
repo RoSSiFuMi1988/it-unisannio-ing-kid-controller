@@ -1,8 +1,6 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -39,7 +37,6 @@ public class Coordinate extends HttpServlet {
 			} catch (Exception e) {}
   		}
   		response.setStatus(HttpStatus.SC_OK);
-  		PrintWriter pw = response.getWriter();
     	Double lat = Double.parseDouble(request.getParameter("lat"));
     	Double lng = Double.parseDouble(request.getParameter("lon"));
     	String imei=request.getParameter("imei");
@@ -64,7 +61,7 @@ public class Coordinate extends HttpServlet {
 				if(dist1<distanza){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
-						request.setAttribute("state", stato);
+						request.setAttribute("state", "Alert");
 						request.setAttribute("text", "Il dispositovo è entrato nell'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
@@ -81,7 +78,7 @@ public class Coordinate extends HttpServlet {
 				if(distanza<dist1){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
-						request.setAttribute("state", stato);
+						request.setAttribute("state", "Alert");
 						request.setAttribute("text", "Il dispositovo è uscito dall'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
@@ -98,7 +95,7 @@ public class Coordinate extends HttpServlet {
 				if(dist1<distanza){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
-						request.setAttribute("state", stato);
+						request.setAttribute("state", "Alert");
 						request.setAttribute("text", "Il dispositivo è rientrato nell'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);

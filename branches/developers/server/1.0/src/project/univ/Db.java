@@ -91,6 +91,17 @@ public class Db {
 		return idUtente;
 	}
 	
+	public String mailpass(String email, String pass) throws Exception{
+		String idUtente = null;
+		String procedure = "{ call mailpass('"+email+"','"+pass+"') }";
+		st.execute(procedure);
+		ResultSet rset = st.getResultSet();
+		while(rset.next()){
+			idUtente = rset.getString("idUtente");
+		}
+		return idUtente;
+	}
+	
 //	Funziona
 	public Notify sendNotify(String imei) throws Exception{
 		String addr=null;

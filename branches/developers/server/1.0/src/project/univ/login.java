@@ -1,7 +1,7 @@
 package project.univ;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -37,22 +37,25 @@ public class login extends HttpServlet {
 				scxt.setAttribute("DbManager", db);
 			} catch (Exception e) {}
   		}
-		PrintWriter pw=response.getWriter();
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String imei = request.getParameter("imei");
+  		String email=null, password=null, imei=null;
+		email = request.getParameter("email");
+		password = request.getParameter("password");
+		imei = request.getParameter("imei");
 		boolean trovato=db.trova(email, password, imei);
 		if(trovato==true){
 			session=request.getSession(true);
 			session.setAttribute("email", email);
 			session.setAttribute("imei", imei);
 			response.setStatus(HttpStatus.SC_OK);
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"0; url=gestore.html\"></head>");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("/gestore.html") ;
+	  		dispatcher.forward(request, response);
 		}
 		else{
 			response.setStatus(HttpStatus.SC_ACCEPTED);
-			pw.println("<html><head><meta http-equiv=\"refresh\" content=\"2; url=login.html\"></head>");
-			pw.println("<body><h1>You wrong your email or password</h1></body></html>");
+			String message="You wrong your email, password or imei";
+			request.setAttribute("messaggio", message);
+	  		RequestDispatcher dispatcher=request.getRequestDispatcher("/error.jsp") ;
+	  		dispatcher.forward(request, response);
 		}
 	}
 
