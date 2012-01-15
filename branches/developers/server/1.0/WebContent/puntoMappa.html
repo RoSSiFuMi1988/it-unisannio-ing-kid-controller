@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Mappa</title>
+
+<!-- chiave mappa di ernesto -->
+<script src="http://maps.google.com/maps?file=api&amp;v=3&amp;sensor=false&amp;key=ABQIAAAAlGa2VqYOASraNv9ZURE43xS-I694MGUuRqMBpCJkKeEjfTngCBSFzWz6dHQxzq17qUBwGg47JrzjMg" 
+		type="text/javascript"></script>
+
+<script type="text/javascript">
+google.load('maps', '3'); // Load version 3 of the Maps API
+
+function raggioD(lat, long, raggio)
+{
+	var centro = new GLatLng(lat,long);
+	drawCircle(centro, raggio);
+}
+
+function drawCircle(point, radius) 
+{
+// alert("drawCircle@"+point+" r="+radius); 
+  var cColor = "#3366ff";
+  var cWidth = 5;
+  var Cradius = radius;   
+  var d2r = Math.PI/180; 
+  var r2d = 180/Math.PI; 
+  var Clat = (Cradius/3963)*r2d; 
+// alert("point.lat()="+point.lat()+" point.lng()="+point.lng());  
+  var Clng = Clat/Math.cos(point.lat()*d2r); 
+  var Cpoints = []; 
+  for (var i=0; i < 33; i++) { 
+    var theta = Math.PI * (i/16); 
+    var CPlng = point.lng() + (Clng * Math.cos(theta)); 
+    var CPlat = point.lat() + (Clat * Math.sin(theta)); 
+    var P = new GLatLng(CPlat,CPlng);
+    newBounds.extend(P);
+    Cpoints.push(P); 
+  }
+ //alert("circle@"+point+" color="+cColor+" width="+cWidth+" length="+Cpoints.length);
+  map.addOverlay(new GPolyline(Cpoints,cColor,cWidth)); 
+} 
+
+function computepos (point)
+{
+document.getElementById("latbox").value=point.y.toFixed(6);
+document.getElementById("lonbox").value=point.x.toFixed(6);
+}
+
+function updateLatLonFields(lat, lon) {
+    document.getElementById("latlon").innerHTML = lat + ', ' + lon;
+}
+
+function load() {
+    if (GBrowserIsCompatible()) {
+	var map = new GMap2(document.getElementById("map"));
+	map.addControl(new GLargeMapControl());
+	map.addControl(new GScaleControl());
+	var center = new GLatLng(41.028089,14.618969);
+	map.setCenter(center, 15);
+	GEvent.addListener(map, 'click', function(overlay, latlng) {
+		map.clearOverlays();
+		marker1 = new GMarker(latlng, {title: "Sono qui"});
+		map.addOverlay(marker1);
+		map.setCenter(marker1.getLatLng() , 15);
+		var centeru=map.getCenter();
+		updateLatLonFields(centeru.lat(), centeru.lng());
+		computepos(centeru);
+	});
+    }
+}
+           
+</script>
+
+</HEAD>
+<BODY onload="load()">
+	<div id="map" style="width: 600px; height: 400px"></div>
+	<SPAN ID="latlon"></SPAN>
+	<form onsubmit="raggioD(this.latbox.value, this.lonbox.value, this.raggio.value)">
+	Latitude: <input size="15" type="text" id="latbox" name="lat" value="" >
+	Longitude: <input size="15" type="text" id="lonbox" name="lon" value="" >
+	Raggio: <input type="text" name="raggio">
+	<input type="submit" value="disegna raggio">
+	<input type='button' onclick="raggio(document.getElementById('latbox'), document.getElementById('lonbox'), document.getElementById('raggio') )" value='Check Field' />
+
+	</form>	
+</BODY>
+</html>
