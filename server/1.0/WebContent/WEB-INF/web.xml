@@ -34,6 +34,17 @@
     <servlet-name>Impostazione</servlet-name>
     <url-pattern>/Impostazione</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>Impostazione2</display-name>
+    <servlet-name>Impostazione2</servlet-name>
+    <servlet-class>project.univ.Impostazione2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Impostazione2</servlet-name>
+    <url-pattern>/Impostazione2</url-pattern>
+  </servlet-mapping>
 
    <servlet>
     <description></description>
