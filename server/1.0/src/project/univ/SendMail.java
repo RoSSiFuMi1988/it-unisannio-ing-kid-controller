@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SendMail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 private static String HOST = "smtp.gmail.com";
-	 private static String USER = "erny1790@gmail.com";
+	 private static String USER = "kidcontrol.pervasive@gmail.com";
 	 private static String PASSWORD = "Emanuela";
 	 private static String PORT = "465";
 	 private static String STARTTLS = "true";
