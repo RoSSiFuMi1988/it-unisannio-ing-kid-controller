@@ -52,7 +52,7 @@ public class Coordinate extends HttpServlet {
 			notifica = db.sendNotify(imei);
 		} catch (Exception e1) {	e1.printStackTrace();		}
 
-		System.out.println(notifica.getType()+" "+notifica.getAddr()+" "+stato);
+		//System.out.println(notifica.getType()+" "+notifica.getAddr()+" "+stato);
 		
 		switch (stato){
 			case ("disattivato"):
@@ -66,11 +66,11 @@ public class Coordinate extends HttpServlet {
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
-						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+						//System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
 					}					
 					try {
 						db.setStato(imei, "Entrato");
-						System.out.println("stato attuale: "+db.getState(imei));
+						//System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) { e.printStackTrace(); }
 				}
 			break;
@@ -83,11 +83,11 @@ public class Coordinate extends HttpServlet {
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
-						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+						//System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
 					}
 					try {
 						db.setStato(imei, "Fuggitivo");
-						System.out.println("stato attuale: "+db.getState(imei));
+						//System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) {	e.printStackTrace(); }
 				}
 			break;
@@ -100,11 +100,11 @@ public class Coordinate extends HttpServlet {
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
-						System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
+						//System.out.println("DISPATCHER "+notifica.getAddr()+" "+stato);
 					}
 					try {
 						db.setStato(imei, "Entrato");
-						System.out.println("stato attuale: "+db.getState(imei));
+						//System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) { e.printStackTrace(); }
 				}
 		}

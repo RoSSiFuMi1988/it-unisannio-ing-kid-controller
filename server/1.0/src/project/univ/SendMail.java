@@ -37,15 +37,10 @@ public class SendMail extends HttpServlet {
     
         
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		String FROM="erny1790@gmail.com";   		
+    		String FROM="kidcontrol.pervasive@gmail.com";   		
     		String TO = (String) request.getAttribute("to");
         	String SUBJECT = (String) request.getAttribute("state");
         	String TEXT = (String) request.getAttribute("text");
-    		/* EMAIL HTML
- 			String TO = (String) request.getParameter("to");
-        	String SUBJECT = (String) request.getParameter("state");
-        	String TEXT = (String) request.getParameter("text");
-    		 */
         	 
         				Properties props = new Properties();
         	 	        props.put("mail.smtp.host", HOST);
