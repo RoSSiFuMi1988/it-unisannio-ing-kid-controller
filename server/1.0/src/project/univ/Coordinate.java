@@ -54,15 +54,13 @@ public class Coordinate extends HttpServlet {
 
 		//System.out.println(notifica.getType()+" "+notifica.getAddr()+" "+stato);
 		
-		switch (stato){
-			case ("disattivato"):
-				break;
-			case ("fuori"):
+		if(stato.equalsIgnoreCase("disattivato"));
+		else if (stato.equalsIgnoreCase("fuori")){
 				if(dist1<distanza){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
 						request.setAttribute("state", "Alert");
-						request.setAttribute("text", "Il dispositovo è entrato nell'area impostata.");
+						request.setAttribute("text", "Il dispositovo ï¿½ entrato nell'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
@@ -73,13 +71,13 @@ public class Coordinate extends HttpServlet {
 						//System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) { e.printStackTrace(); }
 				}
-			break;
-			case("entrato"):
+		}	
+		else if(stato.equalsIgnoreCase("entrato")){
 				if(distanza<dist1){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
 						request.setAttribute("state", "Alert");
-						request.setAttribute("text", "Il dispositovo è uscito dall'area impostata.");
+						request.setAttribute("text", "Il dispositivo ï¿½ uscito dall'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
@@ -90,13 +88,13 @@ public class Coordinate extends HttpServlet {
 						//System.out.println("stato attuale: "+db.getState(imei));
 					} catch (Exception e) {	e.printStackTrace(); }
 				}
-			break;
-			case("fuggitivo"):
+		}
+		else if(stato.equalsIgnoreCase("fuggitivo")){
 				if(dist1<distanza){
 					if(notifica.getType().equalsIgnoreCase("email")){	// EMAIL
 						request.setAttribute("to", notifica.getAddr());
 						request.setAttribute("state", "Alert");
-						request.setAttribute("text", "Il dispositivo è rientrato nell'area impostata.");
+						request.setAttribute("text", "Il dispositivo ï¿½ rientrato nell'area impostata.");
 						String address="SendMail";
 						RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 						dispatcher.forward(request, response);
@@ -108,6 +106,7 @@ public class Coordinate extends HttpServlet {
 					} catch (Exception e) { e.printStackTrace(); }
 				}
 		}
+		
     	try {
 			db.insertCoordinate(lat.toString(), lng.toString(), imei);
 		} catch (Exception e) { e.printStackTrace(); }
