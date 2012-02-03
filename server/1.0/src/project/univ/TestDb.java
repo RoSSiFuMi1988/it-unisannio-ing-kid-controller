@@ -53,10 +53,12 @@ public class TestDb {
 		Location l = database.trovaPosizione("paviliondv5");
 		System.out.println("Latitudine: "+l.getLatitudine()+" Longitudine: "+l.getLongitudine());
 
-*/
 		String id=database.mailpass("maur@live.it", "23agf");
 		System.out.println("Id utente: "+id);
-		
+*/
+		CoordinatePPP c=database.trovaPPP("bb0011");
+		System.out.println(c.getLatitudine()+" "+c.getLongitudine()+" "+c.getDataPosizione()+" "+c.getLat1()+" "+c.getLon1()+" "+c.getRaggio());
+
 	}
 	
 }

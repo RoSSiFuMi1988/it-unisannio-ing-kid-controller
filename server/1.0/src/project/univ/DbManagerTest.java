@@ -32,7 +32,7 @@ private static String email, password, imei;
 	public void testTrovaemail() throws Exception {
 		boolean b=db.trovaemail(email);
 		assertEquals(true, b);
-		email = "giosuecarducci@hotmail.it";
+		email = "giosuè@carducci";
 		b=db.trovaemail(email);
 		assertEquals(false,b);
 	}
@@ -54,10 +54,10 @@ private static String email, password, imei;
 	}
 
 	public void testInsertCoordinate() throws Exception {
-		db.insertCoordinate("14.01", "14.01", imei);
+		db.insertCoordinate("14.02", "14.02", imei);
 		Position c=db.getPostion(imei);
-		assertEquals("14.01", c.getLatitudine());
-		assertEquals("14.01", c.getLongitudine());
+		assertEquals("14.02", c.getLatitudine());
+		assertEquals("14.02", c.getLongitudine());
 
 	}
 
@@ -84,6 +84,16 @@ private static String email, password, imei;
 		//System.out.println(c1.getAddr()+" "+c1.getType());
 		assertEquals(c1.getAddr(), "robb@");
 		assertEquals(c1.getType(), "email");	
+	}
+	
+	public void trovaPPP() throws Exception{
+		CoordinatePPP c = db.trovaPPP(imei);
+		//System.out.println(c.getLatitudine()+" "+c.getLongitudine()+" "+c.getDataPosizione()+" "+c.getLat1()+" "+c.getLon1()+" "+c.getRaggio());
+		assertEquals(c.getLatitudine(), "14.02");
+		assertEquals(c.getLongitudine(), "14.02");
+		assertEquals(c.getLat1(), "14.01");
+		assertEquals(c.getLon1(), "14.01");
+		assertEquals(c.getRaggio(), "1.2");
 	}
 
 }

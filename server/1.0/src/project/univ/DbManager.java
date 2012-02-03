@@ -87,4 +87,9 @@ public class DbManager {
 		Position c=db.getPosition(imei);
 		return c;
 	}
+	
+	public CoordinatePPP trovaPPP(String imei) throws Exception{
+		CoordinatePPP c = db.trovaPPP(imei);
+		return c;
+	}
 }

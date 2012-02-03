@@ -173,4 +173,26 @@ public class Db {
 		Location l=new Location(latitudine, longitudine, raggio);
 		return l;
 	}
+	
+	public CoordinatePPP trovaPPP(String imei) throws Exception{
+		String latitudine = null, longitudine = null, dataPosizione = null, lat1 = null, lon1 = null, raggio = null;
+		String procedure="select p.latitudine, p.longitudine, p.dataPosizione, l.latitudine as lat1, l.longitudine as lon1, l.raggio "+
+				"from posizione p join luogo l "+
+				"where idPosizione=(select max(POSIZIONE_idPosizione) "+
+				"from associa where DISPOSITIVO_idDispositivo=" +
+				"(select idDISPOSITIVO from dispositivo where imei='"+imei+"')) "+
+				"and idLuogo=(select LUOGO_idLUOGO from dispositivo where imei='"+imei+"');";
+		st.execute(procedure);
+		ResultSet rset = st.getResultSet();
+		while(rset.next()){
+			latitudine=rset.getString("latitudine");
+			longitudine=rset.getString("longitudine");
+			dataPosizione=rset.getString("dataPosizione");
+			lat1=rset.getString("lat1");
+			lon1=rset.getString("lon1");
+			raggio=rset.getString("raggio");
+		}
+		CoordinatePPP c = new CoordinatePPP(latitudine, longitudine, dataPosizione, lat1, lon1, raggio);
+		return c;
+	}
 }
