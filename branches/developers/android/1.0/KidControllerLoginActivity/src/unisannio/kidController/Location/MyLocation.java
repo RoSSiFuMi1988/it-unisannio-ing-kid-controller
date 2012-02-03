@@ -114,7 +114,6 @@ public class MyLocation {
 			
 			mHandler.post(new Runnable() {
 				
-				@Override
 				public void run() {
 					if(gps_enabled)
 						lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);				
