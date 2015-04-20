@@ -1,0 +1,1 @@
+geolocalizzazione di un device

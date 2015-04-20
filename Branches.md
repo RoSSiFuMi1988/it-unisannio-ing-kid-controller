@@ -1,0 +1,4 @@
+# Introduzione #
+In questa directory caricheremo tutti i file inerenti allo sviluppo del nostro progetto. Sia la parte riguardante android app che la parte riguardante il lato server.
+La cartella developers è dedicata al codice ed alle parti del progetto che sono in via di sviluppo, insomma che funzionano ma hanno qualche bug. In pratica a tutte quelle parti che sono state implementate ma devono ancora essere provate praticamente.
+La cartella stable è dedicata alle relase stable del nostro progetto. Subversion non ci consente di avere vari rami di sviluppo ma qual'ora noi fossimo intenzionati ad averli basterebbe creare delle cartelle che identificheremo in modo concettuale come i vari rami di sviluppo del nostro progetto.
